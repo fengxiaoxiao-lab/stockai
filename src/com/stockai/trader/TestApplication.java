@@ -1,9 +1,13 @@
 package com.stockai.trader;
 
+import org.slf4j.*;
+
 public class TestApplication
 {
+    static Logger logger = LoggerFactory.getLogger(TestApplication.class);
+
     public static void main(String[] args)
     {
-        System.out.println("hello");
+        logger.info("logger, ....xxxxx...xxxx");
     }
 }
