@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<body>
+		<div id="header"></div>
+    <div class="container-fluid">
+        <br/>
+        <div id="tjxx" class="container-fluid" style="height:45rem;width: 100rem"/>
+        </div>
+        <br/>
+    </div>
+    <script type="text/javascript" src="static/js/echarts.min.js"></script>
+    <script type="text/javascript" src="static/js/jquery-3.3.1.min.js"></script>
+      <script type="text/javascript">
+          $("#header").load("/header");
+      </script>
+        <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('tjxx'), 'light');
+
+        // 指定图表的配置项和数据
+        option = {
+          title : {
+            text: '收益统计'
+          },
+          legend: {
+                data:['日收益率','总收益率']
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross',
+                    crossStyle: {
+                        color: '#999'
+                    }
+                }
+            },
+          xAxis: {
+            type: 'time'
+          },
+          yAxis: {
+            type: 'value',
+            min: -10,
+            max: 30,
+            interval: 2,
+            axisLabel: {
+                formatter: '{value} %'
+            }
+          },
+          series: [{
+            data: [[1522306819000, -1], [1522306919000, -3]],
+            type: 'line',
+            name:'日收益率',
+            itemStyle : {  
+              normal : {  
+                color:'#FF0000',
+                lineStyle:{  
+                  color:'#FF0000'  
+                }  
+              }  
+            },
+          smooth: true
+          },
+          {
+            data: [[1522306819000, 5], [1522306919000, 5]],
+            type: 'line',
+            name:'总收益率',
+            itemStyle : {  
+              normal : {  
+                color:'#0000FF',
+                lineStyle:{  
+                  color:'#0000FF'  
+                }  
+              }  
+            },
+          smooth: true
+          }]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+
+        var func= function(){
+          $.get("/revstatisticsdata",function(data,status)
+          {
+            refreshData(data);       
+          })
+          return func;
+        }
+
+        //这里用setTimeout代替ajax请求进行演示
+        window.setInterval(func(),6000000)
+ 
+        function refreshData(data){
+          if(!myChart){
+            return;
+          }
+     
+          //更新数据
+          var option = myChart.getOption();
+          var obj = JSON.parse(data);
+          option.series[0].data = obj[0].data;
+          option.series[1].data = obj[1].data;
+          myChart.setOption(option);    
+          }
+        </script>
+	</body>
+</html>

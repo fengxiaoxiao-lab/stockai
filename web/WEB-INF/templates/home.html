@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<body>
+		<div id="header"></div>
+    <div class="container-fluid">
+      <div class="row">
+        <div id="zdnum" class="col col-lg-6" style="height:22rem;width: 50rem">
+        </div>
+        <div id="ztzs" class="col col-lg-6" style="height:22rem;width: 50rem">
+        </div>
+      </div>
+      <div class="row">
+        <div id="zqxy" class="col col-lg-6" style="height:23rem;width: 50rem">
+        </div>
+        <div id="fbl" class="col col-lg-3" style="height:23rem;width: 25rem">
+        </div>
+        <div id="zdb" class="col col-lg-3" style="height:23rem;width: 25rem">
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="static/js/echarts.min.js"></script>
+    <script type="text/javascript" src="static/js/jquery-3.3.1.min.js"></script>
+      <script type="text/javascript">
+          $("#header").load("/header");
+      </script>
+
+      <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart1 = echarts.init(document.getElementById('zdnum'), 'light');
+
+        // 指定图表的配置项和数据
+        var option1 = {
+            title : {
+                text: '涨跌统计'
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross',
+                    crossStyle: {
+                        color: '#999'
+                    }
+                }
+            },
+            xAxis: [
+                {
+                  type: 'category',
+                  data: ['跌停','跌停~-7%','-7%~-3%','-3%~0','0~3%','3%~7%','7%~涨停','涨停'],
+                  axisPointer: {type: 'shadow'}
+                }
+            ],
+            yAxis: [
+              {
+                type: 'value',
+                name: '数量',
+                    min: 0,
+                    max: 2500,
+                    interval: 500,
+                    axisLabel: {
+                        formatter: '{value}'
+                    }
+                }
+            ],
+            series: [
+                {
+                    name:'涨跌',
+                    type:'bar',
+                    label: {
+                      normal: {
+                          position: 'top',
+                          show: true
+                        }
+                    },
+                    itemStyle:{
+                    normal:{
+                      color: function (params){
+                      if (params.dataIndex<=3)
+                      {
+                        return '#00FF00'
+                      }
+                      else
+                      {
+                        return '#FF0000';
+                      }
+                    }
+                  }},
+                  data:[50, 100, 300, 700, 1540, 572, 200, 30]
+              }
+          ]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart1.setOption(option1);
+
+        var func1= function(){
+          $.get("/getzdtj",function(data,status)
+          {
+            refreshData1(data);       
+          })
+          return func1;
+        }
+
+        //这里用setTimeout代替ajax请求进行演示
+        window.setInterval(func1(),60000)
+ 
+        function refreshData1(data){
+          if(!myChart1){
+            return;
+          }
+     
+          //更新数据
+          var option1 = myChart1.getOption();
+          var obj = JSON.parse(data);
+          option1.series[0].data = obj[0].data;
+          myChart1.setOption(option1);    
+          }
+        </script>
+
+        <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart2 = echarts.init(document.getElementById('ztzs'), 'light');
+
+        // 指定图表的配置项和数据
+        option2 = {
+          title : {
+            text: '涨跌趋势'
+          },
+          legend: {
+                data:['上涨','下跌']
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross',
+                    crossStyle: {
+                        color: '#999'
+                    }
+                }
+            },
+          xAxis: {
+            type: 'time'
+          },
+          yAxis: {
+            type: 'value',
+            min: 0,
+            max: 4000,
+            interval: 500,
+            axisLabel: {
+                formatter: '{value}'
+            }
+          },
+          series: [{
+            data: [[1522306819000, 100], [1522306919000, 200], [1522307019000, 300], [1522307119000, 400], [1522307120000, 500],[1522307230000,1000], [1522302230000, 1500], [1522307430000, 600], [1522407230000, 2500]],
+            type: 'line',
+            name:'上涨',
+            itemStyle : {  
+              normal : {  
+                color:'#FF0000',
+                lineStyle:{  
+                  color:'#FF0000'  
+                }  
+              }  
+            },
+          smooth: true
+          },
+          {
+            data: [[1522306819000, 2000], [1522306919000, 1000], [1522307019000, 2500], [1522307119000, 700], [1522307120000, 900],[1522307230000, 600], [1522302230000, 100], [1522307430000, 200], [1522407230000, 500]],
+            type: 'line',
+            name:'下跌',
+            itemStyle : {  
+               normal : {  
+               color:'#00FF00',
+               lineStyle:{  
+                color:'#00FF00'  
+               }  
+            }  
+          },
+          smooth: true
+         }]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart2.setOption(option2);
+
+        var func2= function(){
+          $.get("/getzdts",function(data,status)
+          {
+            refreshData2(data);       
+          })
+          return func2;
+        }
+
+        //这里用setTimeout代替ajax请求进行演示
+        window.setInterval(func2(),60000)
+ 
+        function refreshData2(data){
+          if(!myChart2){
+            return;
+          }
+     
+          //更新数据
+          var option2 = myChart2.getOption();
+          var obj = JSON.parse(data);
+          option2.series[0].data = obj[0].data;
+          option2.series[1].data = obj[1].data;
+          myChart2.setOption(option2);    
+          }
+        </script>
+
+        <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart3 = echarts.init(document.getElementById('zqxy'), 'light');
+
+        // 指定图表的配置项和数据
+        option3 = {
+          title : {
+            text: '赚钱效应'
+          },
+          legend: {
+                data:['昨日涨停表现','大盘涨幅']
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross',
+                    crossStyle: {
+                        color: '#999'
+                    }
+                }
+            },
+          xAxis: {
+            type: 'time'
+          },
+          yAxis: {
+            type: 'value',
+            min: -5,
+            max: 10,
+            axisLabel: {
+              formatter: '{value} %'
+             }
+          },
+          series: [{
+            data: [['2012-03-01 12:22:33.123', 1], ['2012-03-01 12:27:33.123', 2], ['2012-03-01 12:32:33.123', 5], ['2012-03-01 12:37:33.123', 4], ['2012-03-01 12:42:33.123', 2],['2012-03-01 12:47:33.123',3], ['2012-03-01 12:52:33.123', 1], ['2012-03-01 12:57:33.123', 7], ['2012-03-01 13:02:33.123', 4]],
+            type: 'line',
+            name: '昨日涨停表现',
+            itemStyle : {  
+              normal : {  
+              color:'#FF0000',
+              lineStyle:{  
+              color:'#FF0000'  
+              }  
+             }  
+           },
+          smooth: true
+          },
+          {
+            data: [['2012-03-01 12:22:33.123', 10], ['2012-03-01 12:27:33.123', 4], ['2012-03-01 12:32:33.123', 7], ['2012-03-01 12:37:33.123', 6], ['2012-03-01 12:42:33.123', 8],['2012-03-01 12:47:33.123', 5], ['2012-03-01 12:52:33.123', 2], ['2012-03-01 12:57:33.123', 4], ['2012-03-01 13:02:33.123', 3]],
+            type: 'line',
+            name: '大盘涨幅',
+            itemStyle : {  
+              normal : {  
+              color:'#0000FF',
+              lineStyle:{  
+              color:'#0000FF'  
+              }  
+             }  
+           },
+            smooth: true
+          }]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart3.setOption(option3);
+
+        var func3= function(){
+          $.get("/getzrztyj",function(data,status)
+          {
+            refreshData3(data);       
+          })
+          return func3;
+        }
+
+        //这里用setTimeout代替ajax请求进行演示
+        window.setInterval(func3(),60000)
+ 
+        function refreshData3(data){
+          if(!myChart3){
+            return;
+          }
+     
+          //更新数据
+          var option3 = myChart3.getOption();
+          var obj = JSON.parse(data);
+          option3.series[0].data = obj[0].data;
+          option3.series[1].data = obj[1].data;
+          myChart3.setOption(option3);    
+          }
+        </script>
+
+        <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart4 = echarts.init(document.getElementById('fbl'), 'light');
+
+        // 指定图表的配置项和数据
+        option4 = {
+          title : {
+              text: '封板率'
+            },
+          color:['red', 'green'],
+          tooltip: {
+              trigger: 'item',
+              formatter: "{b}: {c} ({d}%)"
+            },
+          series: [{
+            name:'封板率',
+            type:'pie',
+            radius: ['50%', '70%'],
+            avoidLabelOverlap: false,
+            label: {
+              normal: {
+                 show: false,
+                 position: 'center',
+                 formatter: "{b}:{d}%"
+              },
+              emphasis: {
+                 show: true,
+                 textStyle: {
+                  fontSize: '30',
+                  fontWeight: 'bold'
+                }
+             }
+            },
+            labelLine: {
+                normal: {
+                    show: false
+                }
+            },
+            data:[
+                {value:46, name:'封板'},
+                {value:22, name:'开板'}
+            ]
+        }]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart4.setOption(option4);
+
+        var func4= function(){
+          $.get("/getfbb",function(data,status)
+          {
+            refreshData4(data);       
+          })
+          return func4;
+        }
+
+        //这里用setTimeout代替ajax请求进行演示
+        window.setInterval(func4(),60000)
+ 
+        function refreshData4(data){
+          if(!myChart3){
+            return;
+          }
+     
+          //更新数据
+          var option4 = myChart4.getOption();
+          var obj = JSON.parse(data);
+          option4.series[0].data[0].value = obj[0].data;
+          option4.series[0].data[1].value = obj[1].data;
+          myChart4.setOption(option4);    
+          }
+
+        </script>
+
+        <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart5 = echarts.init(document.getElementById('zdb'), 'light');
+
+        // 指定图表的配置项和数据
+        option5 = {
+          title : {
+                text: '涨跌比(昨日涨停)'
+            },
+          color:['red', 'green'],
+          tooltip: {
+              trigger: 'item',
+              formatter: "{b}: {c} ({d}%)"
+            },
+          series: [{
+            name:'涨跌比',
+            type:'pie',
+            radius: ['50%', '70%'],
+            avoidLabelOverlap: false,
+            label: {
+              normal: {
+                 show: false,
+                 position: 'center',
+                 formatter: "{b}:{d}%"
+              },
+              emphasis: {
+                 show: true,
+                 textStyle: {
+                  fontSize: '30',
+                  fontWeight: 'bold'
+                }
+             }
+            },
+            labelLine: {
+                normal: {
+                    show: false
+                }
+            },
+            data:[
+                {value:20, name:'上涨'},
+                {value:25, name:'下跌'}
+            ]
+        }]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart5.setOption(option5);
+
+        var func5= function(){
+          $.get("/getzrztzdb",function(data,status)
+          {
+            refreshData5(data);       
+          })
+          return func5;
+        }
+
+        //这里用setTimeout代替ajax请求进行演示
+        window.setInterval(func5(),60000)
+ 
+        function refreshData5(data){
+          if(!myChart3){
+            return;
+          }
+     
+          //更新数据
+          var option5 = myChart5.getOption();
+          var obj = JSON.parse(data);
+          option5.series[0].data[0].value = obj[0].data;
+          option5.series[0].data[1].value = obj[1].data;
+          myChart5.setOption(option5);    
+          }
+        </script>
+	</body>
+</html>

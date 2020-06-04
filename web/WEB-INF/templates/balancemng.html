@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <body>
+    <div id="header"></div>
+      <div id="page2" class="m-1 p-1">
+        <br/>
+        <table class="table table-bordered table-hover">
+          <thead class="thead-light">
+            <tr class="text-center">
+              <th scope="col">年</th>
+              <th scope="col">月</th>
+              <th scope="col">账号</th>
+              <th scope="col">期初总额</th>
+              <th scope="col">期末总额</th>
+              <th scope="col">收益率</th>
+              <th scope="col">操盘方收益率</th>
+              <th scope="col">资方收益率</th>
+              <th scope="col">每一万分红</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in rows %}
+              <tr>
+                <th class="text-center">{{ row.year }}</th>
+                <th class="text-center">{{ row.month }}</th>
+                <td class="text-right">{{ row.account }}</td>
+                <td class="text-right">{{ row.sbalance }}</td>
+                <td class="text-right">{{ row.ebalance }}</td>
+                <td class="text-right">{{ row.revenu }}</td>
+                <td class="text-right">{{ row.cpfrevenu }}</td>
+                <td class="text-right">{{ row.zfrevenu }}</td>
+                <td class="text-right">{{ row.bonus }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+      </table>
+      </div>
+      <script type="text/javascript" src="static/js/jquery-3.3.1.min.js"></script>
+       <script type="text/javascript">
+          $("#header").load("/header");
+      </script>
+    
+  </body>
+</html>

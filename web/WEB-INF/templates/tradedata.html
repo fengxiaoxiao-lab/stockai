@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <body>
+    <div id="header"></div>
+      <div id="page2" class="m-1 p-1">
+        <table data-toggle="table" data-pagination="true" data-search="true" data-locale="zh-CN" data-page-size="15" data-page-list="[15, 30, 50, 100]" class="table table-bordered table-hover">
+          <thead class="thead-light">
+            <tr class="text-center">
+              <th class="text-center" scope="col">股票代码</th>
+              <th class="text-center" scope="col">股票名称</th>
+              <th class="text-center" data-sortable="true" scope="col">当前状态</th>
+              <th class="text-center" data-sortable="true" scope="col">买入日期</th>
+              <th class="text-center" data-sortable="true" scope="col">买入价格</th>
+              <th class="text-center" data-sortable="true" scope="col">数量</th>
+              <th class="text-center" data-sortable="true" scope="col">卖出日期</th>
+              <th class="text-center" data-sortable="true" scope="col">卖出价格</th>
+              <th class="text-center" data-sortable="true" scope="col">模式</th>
+              <th class="text-center" data-sortable="true" scope="col">收益率(%)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in rows %}
+              <tr>
+                <td class="text-center">{{ row.code }}</td>
+                <td class="text-center">{{ row.name }}</td>
+                <td class="text-center">{{ row.oper }}</td>
+                <td class="text-right">{{ row.buydate }}</td>
+                <td class="text-right">{{ row.buyprice }}</td>
+                <td class="text-right">{{ row.volume }}</td>
+                <td class="text-right">{{ row.selldate }}</td>
+                <td class="text-right">{{ row.sellprice }}</td>
+                <td class="text-right">{{ row.mode }}</td>
+                <td class="text-right">{{ row.rev }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+      </table>
+      </div>
+      <script type="text/javascript" src="static/js/jquery-3.3.1.min.js"></script>
+      <script type="text/javascript">
+          $("#header").load("/header");
+      </script>
+  </body>
+</html>

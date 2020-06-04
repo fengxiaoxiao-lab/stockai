@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<body>
+		<div id="header"></div>
+        <div class="container-fluid">
+            <br/>
+            
+            <div class="row container-fluid">
+                <div id="2017" style="height:40rem"/>
+            </div>
+            <br/>
+
+            <div class="row container-fluid">
+                <br/>
+            </div>
+
+            <br/>
+            <div class="row container-fluid">
+                <div id="2018" style="height:40rem"/>
+            </div>
+            <br/>
+
+            <div class="row container-fluid">
+                <br/>
+            </div>
+            
+            <br/>
+            <div class="row container-fluid">
+                <div id="2019" style="height:40rem"/>
+            </div>
+            <br/>
+        </div>
+    	<script type="text/javascript" src="static/js/echarts.min.js"></script>
+    	<script type="text/javascript" src="static/js/jquery-3.3.1.min.js"></script>
+    	 <script type="text/javascript">
+          $("#header").load("/header");
+    	</script>
+
+    	<script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('2017'), 'light');
+
+        // 指定图表的配置项和数据
+        var option = {
+            title : {
+                text: '2017年收益(183%)'
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross',
+                    crossStyle: {
+                        color: '#999'
+                    }
+                }
+            },
+            legend: {
+                data:['收益率','大盘涨幅']
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    data: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
+                    axisPointer: {type: 'shadow'}
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    name: '收益率',
+                    min: -10,
+                    max: 40,
+                    interval: 5,
+                    axisLabel: {
+                        formatter: '{value} %'
+                    }
+                }
+            ],
+            series: [
+                {
+                    name:'收益率',
+                    type:'bar',
+                    data:[-1.07, 23.09, 39.56, 3.39, 6.76, -5.27, 10.84, -0.89, 3, 21.99, 12.66, 2.36]
+                },
+                {
+                    name:'大盘涨幅',
+                    type:'bar',
+                    data:[1.79, 2.61, -0.59, -2.11, -1.19, 2.41, 2.52, 2.58, -0.35, 1.33, -2.24, -0.3]
+                },
+            ]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+        </script>
+
+        <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('2018'), 'light');
+
+        // 指定图表的配置项和数据
+        var option = {
+            title : {
+                text: '2018年收益(76%)'
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross',
+                    crossStyle: {
+                        color: '#999'
+                    }
+                }
+            },
+            legend: {
+                data:['收益率','大盘涨幅']
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    data: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
+                    axisPointer: {type: 'shadow'}
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    name: '收益率',
+                    min: -10,
+                    max: 20,
+                    interval: 5,
+                    axisLabel: {
+                        formatter: '{value} %'
+                    }
+                }
+            ],
+            series: [
+                {
+                    name:'收益率',
+                    type:'bar',
+                    data:[1.45, 1.23, 0.21, -4.79, 6.47, -2.64, 2.68, 3.30, 5.15, 13.88, 17.94, 15.67]
+                },
+                {
+                    name:'大盘涨幅',
+                    type:'bar',
+                    data:[5.25, -6.36, -2.78, -2.74, 0.43, -8.01, 1.02, -5.25, 3.53, -7.75, -0.56, -3.64]
+                }
+            ]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('2019'), 'dark');
+
+        // 指定图表的配置项和数据
+        var option = {
+            title : {
+                text: '2019年收益(0%)'
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross',
+                    crossStyle: {
+                        color: '#999'
+                    }
+                }
+            },
+            legend: {
+                data:['收益率','大盘涨幅']
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    data: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
+                    axisPointer: {type: 'shadow'}
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    name: '收益率',
+                    min: -10,
+                    max: 20,
+                    interval: 5,
+                    axisLabel: {
+                        formatter: '{value} %'
+                    }
+                }
+            ],
+            series: [
+                {
+                    name:'收益率',
+                    type:'bar',
+                    data:[0.96, 1.43, 1.33, -4.79, 6.47, -2.64, 2.68, 3.30, 5.15, 13.88, 17.94, 15.67]
+                },
+                {
+                    name:'大盘涨幅',
+                    type:'bar',
+                    data:[3.64, 13.79, 5.09, -2.74, 0.43, -8.01, 1.02, -5.25, 3.53, -7.75, -0.56, -3.64]
+                }
+            ]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+		
+	</body>
+</html>
